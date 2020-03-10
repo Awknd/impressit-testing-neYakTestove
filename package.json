@@ -1,0 +1,15 @@
+{
+  "name": "books",
+  "version": "1.0.0",
+  "description": "",
+  "main": "handler.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Vlad Stasyshyn",
+  "license": "ISC",
+  "dependencies": {
+    "dynamoose": "^1.11.1",
+    "uuid": "^7.0.2"
+  }
+}

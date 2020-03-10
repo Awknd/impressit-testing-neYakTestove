@@ -1,0 +1,84 @@
+service: books
+app: my-first-app
+org: vladstasyshyn
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+        - dynamodb:Scan
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+        - dynamodb:DeleteItem
+        - dynamodb:UpdateItem
+      Resource: "*"
+
+functions:
+  getBook:
+    handler: /src/handlers/books.getBook
+    events:
+      - http:
+          path: /book/{bookUuid}
+          method: get
+          request:
+            parameters:
+              paths:
+                bookUuid: true
+
+  getBooks:
+    handler: /src/handlers/books.getBooks
+    events:
+      - http:
+          path: /books
+          method: get
+
+  createBook:
+    handler: /src/handlers/books.createBook
+    events:
+      - http:
+          path: /book/add
+          method: post
+
+  updateBook:
+    handler: /src/handlers/books.updateBook
+    events:
+      - http:
+          path: /book/{bookUuid}/update
+          method: post
+          request:
+            parameters:
+              paths:
+                bookUuid: true
+
+  deleteBook:
+    handler: /src/handlers/books.deleteBook
+    events:
+      - http:
+          path: /book/{bookUuid}/delete
+          method: post
+          request:
+            parameters:
+              paths:
+                bookUuid: true
+
+
+
+# Resources
+resources:
+  Resources:
+    booksTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: booksTable
+        AttributeDefinitions:
+        - AttributeName: uuid
+          AttributeType: S
+        KeySchema:
+        - AttributeName: uuid
+          KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 5
+          WriteCapacityUnits: 5
