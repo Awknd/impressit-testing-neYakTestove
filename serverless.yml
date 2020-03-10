@@ -1,10 +1,11 @@
 service: books
-app: my-first-app
+app: books
 org: vladstasyshyn
 
 provider:
   name: aws
   runtime: nodejs12.x
+  profile: eu-central
   iamRoleStatements:
     - Effect: Allow
       Action:
@@ -18,7 +19,7 @@ provider:
 
 functions:
   getBook:
-    handler: /src/handlers/books.getBook
+    handler: /src/handlers/BooksHandler.get
     events:
       - http:
           path: /book/{bookUuid}
@@ -29,21 +30,21 @@ functions:
                 bookUuid: true
 
   getBooks:
-    handler: /src/handlers/books.getBooks
+    handler: /src/handlers/BooksHandler.get
     events:
       - http:
           path: /books
           method: get
 
   createBook:
-    handler: /src/handlers/books.createBook
+    handler: /src/handlers/BooksHandler.create
     events:
       - http:
           path: /book/add
           method: post
 
   updateBook:
-    handler: /src/handlers/books.updateBook
+    handler: /src/handlers/BooksHandler.update
     events:
       - http:
           path: /book/{bookUuid}/update
@@ -54,7 +55,7 @@ functions:
                 bookUuid: true
 
   deleteBook:
-    handler: /src/handlers/books.deleteBook
+    handler: /src/handlers/BooksHandler.delete
     events:
       - http:
           path: /book/{bookUuid}/delete

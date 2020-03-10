@@ -9,7 +9,7 @@
   "author": "Vlad Stasyshyn",
   "license": "ISC",
   "dependencies": {
-    "dynamoose": "^1.11.1",
+    "aws-sdk": "^2.636.0",
     "uuid": "^7.0.2"
   }
 }
