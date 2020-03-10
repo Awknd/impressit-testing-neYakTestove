@@ -1,4 +1,4 @@
-const manager = require('../db/connection');
+const manager = require('../connection');
 
 const _tableName = 'booksTable';
 const uuid = require('uuid');

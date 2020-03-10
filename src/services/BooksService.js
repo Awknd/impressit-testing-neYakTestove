@@ -1,4 +1,4 @@
-const BooksModel = require('../models/books');
+const BooksModel = require('../db/models/books');
 const Book = new BooksModel();
 
 class BooksService {
